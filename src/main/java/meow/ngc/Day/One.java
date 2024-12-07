@@ -47,6 +47,39 @@ public class One
         return sortedPairs;
     }
 
+    private int calculateArraySum(List<Integer> arr) {
+        int result = 0;
+
+        for (int val : arr)
+            result += val;
+
+        return result;
+    }
+
+    private int getSimilarityScore(Map<Integer, Integer> similarPairs) {
+        List<Integer> resultsUnsummed = new ArrayList<>();
+        for (int key : similarPairs.keySet()) {
+            resultsUnsummed.add(key * similarPairs.get(key));
+        }
+
+        return calculateArraySum(resultsUnsummed);
+    }
+
+    public int calculateSimilarity() throws IOException {
+        Map<Integer, Integer> pairsInstanceCounter = new TreeMap<>();
+
+        for (int key : mapInputs().keySet()) {
+            pairsInstanceCounter.putIfAbsent(key, 0); // Initial value
+            for (int value : mapInputs().values()) {
+                if (key == value) {
+                    pairsInstanceCounter.computeIfPresent(key, (k, v) -> v + 1);
+                }
+            }
+        }
+
+        return getSimilarityScore(pairsInstanceCounter);
+    }
+
     private int calculatePairDistance(int a, int b) {
         return Math.abs(a - b);
     }

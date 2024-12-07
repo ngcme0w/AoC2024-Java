@@ -9,6 +9,7 @@ public class Main {
         One dayOne = new One();
         try {
             System.out.println("Day one answer: " + dayOne.getPairsDistanceSum());
+            System.out.println("Total similarity score: " + dayOne.calculateSimilarity());
         } catch (IOException ioe) {
             System.err.println("IOException occurred.");
         }
