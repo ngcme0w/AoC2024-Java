@@ -39,12 +39,7 @@ public class One extends InputHandler {
     }
 
     private int calculateArraySum(List<Integer> arr) {
-        int result = 0;
-
-        for (int val : arr)
-            result += val;
-
-        return result;
+        return arr.stream().mapToInt(Integer::intValue).sum();
     }
 
     private int getSimilarityScore(Map<Integer, Integer> similarPairs) {
