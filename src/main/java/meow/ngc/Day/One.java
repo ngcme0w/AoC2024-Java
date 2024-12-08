@@ -1,21 +1,15 @@
 package meow.ngc.Day;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import meow.ngc.InputHandler;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class One
-{
+public class One extends InputHandler {
     private final String inputLocation = "src/inputs/One/input";
 
-    private String getInputs() throws IOException {
-        return Files.readString(Paths.get(inputLocation));
-    }
-
-    private Map<Integer, Integer> mapInputs() throws IOException {
-        return Arrays.stream(getInputs()
+    private Map<Integer, Integer> mapInputs() {
+        return Arrays.stream(getInputs(inputLocation)
                 .split(System.lineSeparator()))
                 .map(columnLine -> columnLine.split("\s+"))
                 .collect(Collectors.toMap(
@@ -29,20 +23,17 @@ public class One
         List<Integer> givenValues = new ArrayList<>();
         Map<Integer, Integer> sortedPairs = new TreeMap<>();
 
-        for (int givenKey : unsortedMap.keySet()) {
+        for (int givenKey : unsortedMap.keySet())
             givenKeys.add(givenKey);
-        }
 
-        for (int givenValue : unsortedMap.values()) {
+        for (int givenValue : unsortedMap.values())
             givenValues.add(givenValue);
-        }
 
         givenKeys.sort(Comparator.naturalOrder());
         givenValues.sort(Comparator.naturalOrder());
 
-        for (int i = 0; i < givenValues.size(); i++) {
+        for (int i = 0; i < givenValues.size(); i++)
             sortedPairs.put(givenKeys.get(i), givenValues.get(i));
-        }
 
         return sortedPairs;
     }
@@ -58,23 +49,20 @@ public class One
 
     private int getSimilarityScore(Map<Integer, Integer> similarPairs) {
         List<Integer> resultsUnsummed = new ArrayList<>();
-        for (int key : similarPairs.keySet()) {
+        for (int key : similarPairs.keySet())
             resultsUnsummed.add(key * similarPairs.get(key));
-        }
 
         return calculateArraySum(resultsUnsummed);
     }
 
-    public int calculateSimilarity() throws IOException {
+    public int calculateSimilarity() {
         Map<Integer, Integer> pairsInstanceCounter = new TreeMap<>();
 
         for (int key : mapInputs().keySet()) {
-            pairsInstanceCounter.putIfAbsent(key, 0); // Initial value
-            for (int value : mapInputs().values()) {
-                if (key == value) {
+            pairsInstanceCounter.putIfAbsent(key, 0);
+            for (int value : mapInputs().values())
+                if (key == value)
                     pairsInstanceCounter.computeIfPresent(key, (k, v) -> v + 1);
-                }
-            }
         }
 
         return getSimilarityScore(pairsInstanceCounter);
@@ -84,7 +72,7 @@ public class One
         return Math.abs(a - b);
     }
 
-    private ArrayList<Integer> returnAllPairDistances() throws IOException {
+    private ArrayList<Integer> returnAllPairDistances() {
         return sortColumns(mapInputs())
                 .entrySet()
                 .stream()
@@ -96,7 +84,7 @@ public class One
         return pairs.stream().mapToInt(Integer::intValue).sum();
     }
 
-    public int getPairsDistanceSum() throws IOException {
+    public int getPairsDistanceSum() {
         return getSumOfArrayList(returnAllPairDistances());
     }
 }
