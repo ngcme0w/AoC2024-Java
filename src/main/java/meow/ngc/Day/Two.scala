@@ -9,9 +9,9 @@ class Two extends InputHandler {
 
   private val inputsAsList: List[Array[Int]] =
     getInputs(inputLocation).split(Properties.lineSeparator)
-                 .map(line => line
-                   .split(" ")
-                   .map(_.toInt)).toList
+      .map(line => line
+        .split(" ")
+        .map(_.toInt)).toList
 
   private def isInConstraints(report: Array[Int]): Boolean = {
     val isIncreasing = report.sliding(2).forall {
