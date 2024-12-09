@@ -25,6 +25,8 @@ class Two extends InputHandler {
     isIncreasing || isDecreasing
   }
 
+  //TODO: part two dampener
+
   def getNumberOfSafeReports: Int = {
     inputsAsList.count(report => isInConstraints(report))
   }
