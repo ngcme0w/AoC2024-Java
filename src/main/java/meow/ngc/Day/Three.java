@@ -5,8 +5,6 @@ import meow.ngc.InputHandler;
 import java.io.BufferedReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Three extends InputHandler {
     private final String inputLocation = "src/inputs/Three/input";
@@ -29,8 +27,7 @@ public class Three extends InputHandler {
                 desiredExpr = Pattern.compile("mul\\(([0-9]{1,3}),([0-9]{1,3})\\)");
             else
                 desiredExpr = Pattern.compile("mul\\((\\d+),(\\d+)\\)|do\\(\\)|don't\\(\\)");
-
-
+            
             for (String line: inputs.lines().toList()) {
                 final Matcher match = desiredExpr.matcher(line);
                 while (match.find()) {
